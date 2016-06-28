@@ -24,7 +24,7 @@ You can learn more about the the developer, [here](https://about.me/ieffendi), o
 
 ### Boilerplate
 
-<Resume Scraper> Copyright(C) 2016  Ian A.Effendi
+Resume Scraper Copyright (C) 2016  Ian A.Effendi
 	   
 This project has been created for the purpose of
 scraping data and information from clients
@@ -43,78 +43,110 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
 GNU Affero General Public License for more details.
 	   
 You should have received a copy of the GNU Affero General Public License
-along with this program.If not, see<http://www.gnu.org/licenses/>.
+along with this program. If not, see: \[http://www.gnu.org/licenses/\].
 
 
 ### Dependencies and Attributions:
 This project makes use of the following, open-source, external libraries:
 	   
 [-](https://github.com/erezak/libphonenumber-csharp/blob/master/LICENSE) libphonenumber-csharp (Under the Apache 2.0 License)
-	<https://github.com/erezak/libphonenumber-csharp/blob/master/LICENSE>	
-	This library is utilized by the Telephone.cs class to help
-	facilitate the extraction and formation of telephone numbers
-	in a variety of document settings.This particular library
-	is a port of the original Java library.
 
- 
+\< https://github.com/erezak/libphonenumber-csharp/blob/master/LICENSE \>	
+
+This library is utilized by the Telephone.cs class to help
+facilitate the extraction and formation of telephone numbers
+in a variety of document settings.This particular library
+is a port of the original Java library.
+
+-------------------------------------------------------------
+
 [-](https://usaddress.codeplex.com/) US Address Parser(Under the GNU General Public License v. 2)
-	<https://usaddress.codeplex.com/>
-	This library is utilized by the AddressBook.cs class to help
-	facilitate the extraction and formation of street addresses
-	in a variety of documents and settings.This library is a
-	partial port of the original Perl module "GEO::StreetAddress:US"
-	written by Schuyler D. Erle. for CPAN.
 
+\< https://usaddress.codeplex.com/ \>
+
+This library is utilized by the AddressBook.cs class to help
+facilitate the extraction and formation of street addresses
+in a variety of documents and settings.This library is a
+partial port of the original Perl module "GEO::StreetAddress:US"
+written by Schuyler D. Erle. for CPAN.
+
+-------------------------------------------------------------
   
 [-](https://docx.codeplex.com) DocX (Under the Microsoft Public License)
-	<https://docx.codeplex.com>
-	This.Net library allows developers to manipulate Word documents
-	from Word 2007/2010/2013. It does not require Microsoft Word
-	or Office to be installed.It was written by Cathal Coffey.
-		
+	
+\< https://docx.codeplex.com \>
+
+This.Net library allows developers to manipulate Word documents
+from Word 2007/2010/2013. It does not require Microsoft Word
+or Office to be installed.It was written by Cathal Coffey.
+
+-------------------------------------------------------------
+	
 [-](http://itextpdf.com/) iTextSharp Library (Under the GNU Affero General Public License v. 3)
-	<http://itextpdf.com/>
-	This library helps automate the documentation process involving
-	PDF files.IText's license prevents this source code from being
-	developed for commercial purpose as a commercial waiver for the
-	limitations of the AGPLv3 license, has not been purchased at present.
 
-	Use of iTextSharp is permitted so long as this source remains
-	open source.
-		 
+\< http://itextpdf.com/ \>
+
+This library helps automate the documentation process involving
+PDF files.IText's license prevents this source code from being
+developed for commercial purpose as a commercial waiver for the
+limitations of the AGPLv3 license, has not been purchased at present.
+
+Use of iTextSharp is permitted so long as this source remains
+open source.
+
+-------------------------------------------------------------
+	 
 - PDFSharp Library (Under the MIT License)
-	<http://www.pdfsharp.net/>
-	PDFSharp is an Open Source .NET library that can easily
-	create and process PDF documents, on the fly, from any .NET
-	language. The smae drawing routines can be used to create
-	PDF documents, draw on the screen, or send output to any
-	printer.
-		 
-[-](http://www.pdfsharp.net/) MigraDoc Foundation Library (Under the MIT License)
-	<http://www.pdfsharp.net/>
-	MigraDoc Foundation is an Open Source .NET library that
-	can easily create documents based on an object model
-	with paragraphs, tables, styles, etc., and render
-	them into PDF's or RTF's.
-		 
-[-](https://npoi.codeplex.com/) NPOI Library (Under the Apache 2.0 License)
-	<https://npoi.codeplex.com/>
-	NPOI is the .NET version of the POI Java project at
-	<http://poi.apache.org/>. POI is an open source project
-	that can help you read/write  .xls,  .doc, and  .ppt files,
-	having a wide application.
-		 
-[-](http://www.newtonsoft.com/json) Newtonsoft Json.NET Library (Under the MIT License)
-	<http://www.newtonsoft.com/json>
-	A high-performance, world-class JSON Serializer library,
-	that was released as open-source under the MIT license.
 
-	Supports LINQ queries, XML conversion, and the.NET language
-	making it incredibly versatile, and invaluable.
+\< http://www.pdfsharp.net/ \>
+
+PDFSharp is an Open Source .NET library that can easily
+create and process PDF documents, on the fly, from any .NET
+language. The smae drawing routines can be used to create
+PDF documents, draw on the screen, or send output to any
+printer.
+
+-------------------------------------------------------------
+	 
+[-](http://www.pdfsharp.net/) MigraDoc Foundation Library (Under the MIT License)
+
+\< http://www.pdfsharp.net/ \>
+
+MigraDoc Foundation is an Open Source .NET library that
+can easily create documents based on an object model
+with paragraphs, tables, styles, etc., and render
+them into PDF's or RTF's.
+
+-------------------------------------------------------------
+	 
+[-](https://npoi.codeplex.com/) NPOI Library (Under the Apache 2.0 License)
+
+\< https://npoi.codeplex.com/ \>
+
+NPOI is the .NET version of the POI Java project at
+\< http://poi.apache.org/ \>. POI is an open source project
+that can help you read/write  .xls,  .doc, and  .ppt files,
+having a wide application.
+
+-------------------------------------------------------------
+	 
+[-](http://www.newtonsoft.com/json) Newtonsoft Json.NET Library (Under the MIT License)
+
+\< http://www.newtonsoft.com/json \>
+
+A high-performance, world-class JSON Serializer library,
+that was released as open-source under the MIT license.
+
+Supports LINQ queries, XML conversion, and the.NET language
+making it incredibly versatile, and invaluable.
+
+-------------------------------------------------------------
 		 
 [-](https://github.com/icsharpcode/SharpZipLib) SharpZipLib Library (Under the MIT License)
-	<https://github.com/icsharpcode/SharpZipLib>
-	This library was previously released under the
-	GNU General Public License v. 2 (GPLv2), however,
-	it has since been re-released under the MIT License,
-	a simpler, more permissive, license.
+
+\< https://github.com/icsharpcode/SharpZipLib \>
+
+This library was previously released under the
+GNU General Public License v. 2 (GPLv2), however,
+it has since been re-released under the MIT License,
+a simpler, more permissive, license.
