@@ -43,10 +43,10 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
 GNU Affero General Public License for more details.
 	   
 You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see: \[http://www.gnu.org/licenses/\].
+along with this program. If not, see: \[ http://www.gnu.org/licenses/ \].
 
 
-### Dependencies and Attributions:
+### Dependencies and Attributions
 This project makes use of the following, open-source, external libraries:
 	   
 [-](https://github.com/erezak/libphonenumber-csharp/blob/master/LICENSE) libphonenumber-csharp (Under the Apache 2.0 License)
@@ -62,7 +62,7 @@ is a port of the original Java library.
 
 [-](https://usaddress.codeplex.com/) US Address Parser(Under the GNU General Public License v. 2)
 
-\< https://usaddress.codeplex.com/ \>
+\< *https://usaddress.codeplex.com/* \>
 
 This library is utilized by the AddressBook.cs class to help
 facilitate the extraction and formation of street addresses
@@ -74,7 +74,7 @@ written by Schuyler D. Erle. for CPAN.
   
 [-](https://docx.codeplex.com) DocX (Under the Microsoft Public License)
 	
-\< https://docx.codeplex.com \>
+\< *https://docx.codeplex.com* \>
 
 This.Net library allows developers to manipulate Word documents
 from Word 2007/2010/2013. It does not require Microsoft Word
@@ -84,7 +84,7 @@ or Office to be installed.It was written by Cathal Coffey.
 	
 [-](http://itextpdf.com/) iTextSharp Library (Under the GNU Affero General Public License v. 3)
 
-\< http://itextpdf.com/ \>
+\< *http://itextpdf.com/* \>
 
 This library helps automate the documentation process involving
 PDF files.IText's license prevents this source code from being
@@ -96,9 +96,9 @@ open source.
 
 -------------------------------------------------------------
 	 
-- PDFSharp Library (Under the MIT License)
+[-](http://www.pdfsharp.net/) PDFSharp Library (Under the MIT License)
 
-\< http://www.pdfsharp.net/ \>
+\< *http://www.pdfsharp.net/* \>
 
 PDFSharp is an Open Source .NET library that can easily
 create and process PDF documents, on the fly, from any .NET
@@ -110,7 +110,7 @@ printer.
 	 
 [-](http://www.pdfsharp.net/) MigraDoc Foundation Library (Under the MIT License)
 
-\< http://www.pdfsharp.net/ \>
+\< *http://www.pdfsharp.net/* \>
 
 MigraDoc Foundation is an Open Source .NET library that
 can easily create documents based on an object model
@@ -121,10 +121,10 @@ them into PDF's or RTF's.
 	 
 [-](https://npoi.codeplex.com/) NPOI Library (Under the Apache 2.0 License)
 
-\< https://npoi.codeplex.com/ \>
+\< *https://npoi.codeplex.com/* \>
 
 NPOI is the .NET version of the POI Java project at
-\< http://poi.apache.org/ \>. POI is an open source project
+\< *http://poi.apache.org/* \>. POI is an open source project
 that can help you read/write  .xls,  .doc, and  .ppt files,
 having a wide application.
 
@@ -132,7 +132,7 @@ having a wide application.
 	 
 [-](http://www.newtonsoft.com/json) Newtonsoft Json.NET Library (Under the MIT License)
 
-\< http://www.newtonsoft.com/json \>
+\< *http://www.newtonsoft.com/json* \>
 
 A high-performance, world-class JSON Serializer library,
 that was released as open-source under the MIT license.
@@ -144,7 +144,7 @@ making it incredibly versatile, and invaluable.
 		 
 [-](https://github.com/icsharpcode/SharpZipLib) SharpZipLib Library (Under the MIT License)
 
-\< https://github.com/icsharpcode/SharpZipLib \>
+\< *https://github.com/icsharpcode/SharpZipLib* \>
 
 This library was previously released under the
 GNU General Public License v. 2 (GPLv2), however,
