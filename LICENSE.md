@@ -4,7 +4,7 @@
        href="http://www.gnu.org/licenses/agpl-3.0.rdf" />
 	   
 <body>
-<h3 style="text-align: center;">GNU AFFERO GENERAL PUBLIC LICENSE</h3>
+<h3 style="text-align: center;"><a href="https://cdn.rawgit.com/rimij405/DocumentParser/master/LICENSE.html" target="_blank">GNU AFFERO GENERAL PUBLIC LICENSE</a></h3>
 <p style="text-align: center;">Version 3, 19 November 2007</p>
 
 <p>Copyright &copy; 2007 Free Software Foundation,
