@@ -40,8 +40,8 @@ namespace DocumentParser.DocumentLoading
 		 */
 
 		private Name _fullName;
-		private List<Address> _streetAddresses;
-		private List<PhoneNumber> _phoneNumbers;
+		private List<AddressBook> _streetAddresses;
+		private List<Telephone> _phoneNumbers;
 		private List<EmailAddress> _emailAddresses;
 		Dictionary<string, List<Experience>> _experiences;
 		private List<Experience> _workExperience;

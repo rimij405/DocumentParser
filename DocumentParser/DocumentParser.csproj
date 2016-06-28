@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AddressParser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\AddressParser.dll</HintPath>
+    </Reference>
     <Reference Include="DocX, Version=1.0.0.19, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DocX.1.0.0.19\lib\net40\DocX.dll</HintPath>
       <Private>True</Private>
@@ -44,6 +48,10 @@
     <Reference Include="itextsharp, Version=5.5.9.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.9\lib\itextsharp.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="libphonenumber_csharp_portable, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\libphonenumber_csharp_portable.dll</HintPath>
     </Reference>
     <Reference Include="Mammoth, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mammoth.0.0.2.0\lib\net45\Mammoth.dll</HintPath>
@@ -106,9 +114,10 @@
     <Compile Include="DocumentLoading\PDFDocumentParser.cs" />
     <Compile Include="DocumentLoading\PdfSharpExtensions.cs" />
     <Compile Include="DocumentLoading\ResumeDTO.cs" />
-    <Compile Include="DocumentLoading\Resume\Address.cs" />
+    <Compile Include="DocumentLoading\Resume\AddressBook.cs" />
     <Compile Include="DocumentLoading\Resume\EmailAddress.cs" />
     <Compile Include="DocumentLoading\Resume\Name.cs" />
+    <Compile Include="DocumentLoading\Resume\Telephone.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -139,15 +148,6 @@
       <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>8</VersionMajor>
       <VersionMinor>7</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="MSHTML">
-      <Guid>{3050F1C5-98B5-11CF-BB82-00AA00BDCE0B}</Guid>
-      <VersionMajor>4</VersionMajor>
-      <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
