@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentParser.DocumentLoading;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace DocumentParser
 		private static Dictionary<string, int> commands;
 		private static Dictionary<int, Action> delegates;
 		private static Dictionary<int, Func<string, bool>> functions;
-		private static int[] delegateValues = { TEST_PRINTER };
+		private static int[] delegateValues = { TEST_PRINTER, TEST_DOC };
 
 		#endregion
 
@@ -47,17 +48,34 @@ namespace DocumentParser
 		private const int NAN_CODE = int.MinValue;
 
 		private const int TEST_PRINTER = 0;
+		private const int TEST_DOC = 2;
 		private const int PROMPT_CODE = 1;
 
 		#endregion
 
+		[STAThreadAttribute]
 		public static void Main(string[] args)
 		{
 			init();
 
-			while (TestingHub(delegates, functions))
+			try
 			{
-				// Anything that needs to be run after the above program.
+
+				while (TestingHub(delegates, functions))
+				{
+					// Anything that needs to be run after the above program.
+
+				}
+
+			}
+			catch (Exception e)
+			{
+				Pause(e.Source);
+				Pause(e.Message);
+				Pause(e.StackTrace);
+			}
+			finally
+			{
 
 			}
 
@@ -70,7 +88,7 @@ namespace DocumentParser
 		{
 			delegates = new Dictionary<int, Action>();
 			delegates.Add(TEST_PRINTER, TestPrintingAids);
-			delegates.Add(EXIT_CODE, Exit);
+			delegates.Add(TEST_DOC, DocumentTester.DocumentTesting);
 
 			functions = new Dictionary<int, Func<string, bool>>();
 			functions.Add(PROMPT_CODE, Prompt);
@@ -180,6 +198,8 @@ namespace DocumentParser
 
 		public static bool TestingHub(Dictionary<int, Action> tasks, Dictionary<int, Func<string, bool>> funcs)
 		{
+			Clear();
+
 			foreach (int value in delegateValues)
 			{
 				// Invokes each existing method, in order.
@@ -188,7 +208,7 @@ namespace DocumentParser
 					tasks[value].Invoke();
 				}
 			}
-
+			
 			return funcs[PROMPT_CODE].Invoke("Would you like to repeat the program? (y)/(n)");
 		}
 
