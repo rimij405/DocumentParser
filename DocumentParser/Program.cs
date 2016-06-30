@@ -1,5 +1,5 @@
 ﻿/*****************************************************************************
-   * <Resume Scraper> Copyright (C) 2016  Ian A. Effendi 
+   * Resume Scraper Copyright (C) 2016  Ian A. Effendi 
    * 
    * This project has been created for the purpose of
    * scraping data and information from clients
@@ -89,14 +89,10 @@
    *   a simpler, more permissive, license.
    * 
    ****************************************************************************/
-
 using DocumentParser.DocumentLoading;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DocumentParser
 {

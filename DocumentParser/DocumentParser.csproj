@@ -115,9 +115,12 @@
     <Compile Include="DocumentLoading\PdfSharpExtensions.cs" />
     <Compile Include="DocumentLoading\ResumeDTO.cs" />
     <Compile Include="DocumentLoading\Resume\AddressBook.cs" />
-    <Compile Include="DocumentLoading\Resume\EmailAddress.cs" />
+    <Compile Include="DocumentLoading\Resume\BaseBook.cs" />
+    <Compile Include="DocumentLoading\Resume\ContactSheet.cs" />
+    <Compile Include="DocumentLoading\Resume\EmailBook.cs" />
+    <Compile Include="DocumentLoading\Resume\IBook.cs" />
     <Compile Include="DocumentLoading\Resume\Name.cs" />
-    <Compile Include="DocumentLoading\Resume\Telephone.cs" />
+    <Compile Include="DocumentLoading\Resume\PhoneBook.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

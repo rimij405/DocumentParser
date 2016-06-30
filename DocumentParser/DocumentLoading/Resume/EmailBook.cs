@@ -24,20 +24,19 @@
    **************************************************************************/
 using System;
 using System.Collections.Generic;
-using AddressReader = AddressParser.AddressParser;
-using Address = AddressParser.AddressParseResult;
+using Email = System.Net.Mail.MailAddress;
 
 namespace DocumentParser.DocumentLoading.Resume
 {
-	public class AddressBook : IBook<Address>
+	public class EmailBook : IBook<Email>
 	{
 		#region Properties
 
 		/// <summary>
-		/// Addresses is a list of all the 
-		/// Address objects being stored.
+		/// Emails is a list of all the 
+		/// Email objects being stored.
 		/// </summary>
-		public List<Address> Addresses
+		public List<Email> Emails
 		{
 			get { return this.Collection; }
 		}
@@ -47,13 +46,12 @@ namespace DocumentParser.DocumentLoading.Resume
 		#region Static Methods
 
 		/// <summary>
-		/// GetFormattedAddress(string) returns a single formatted
-		/// string containing the numbers alone, formatted
-		/// in the US National method.
+		/// GetFormattedEmailAddress(string) returns a single formatted
+		/// string containing a parsed email address, if possible.
 		/// </summary>
 		/// <param name="input">Input string to be parsed.</param>
-		/// <returns>Returns a formatted address.</returns>
-		public static string GetFormattedAddress(string input)
+		/// <returns>Returns a formatted email address.</returns>
+		public static string GetFormattedEmail(string input)
 		{
 			if (String.IsNullOrEmpty(input.Trim()))
 			{
@@ -61,38 +59,47 @@ namespace DocumentParser.DocumentLoading.Resume
 			}
 			else
 			{
-				Address result = AddressBook.GetAddress(input.Trim());
+				try
+				{
+					Email result = new Email(input.Trim());
 
-				if (result == null)
-				{
-					return "";
+					if (result == null)
+					{
+						return "";
+					}
+					else
+					{
+						return result.ToString();
+					}					
 				}
-				else
+				catch (Exception e)
 				{
-					return result.ToString();
+					Program.Write("There was an error parsing this email.");
+					Program.Write("The exception is as follows: " + e.Message);
+					Program.Write(e.Source);
+					Program.Write(e.StackTrace);
+					return null;
 				}
 			}
 		}
 
 		/// <summary>
-		/// GetAddress(string) returns a Address object
+		/// GetEmail(string) returns a Email object
 		/// </summary>
 		/// <param name="input">Input string to be parsed.</param>
-		/// <returns>Returns an Address object.</returns>
-		public static Address GetAddress(string input)
+		/// <returns>Returns an Email object.</returns>
+		public static Email GetEmail(string input)
 		{
 			if (String.IsNullOrEmpty(input)) { return null; }
-
-			AddressReader addressUtility = new AddressReader();
-
+			
 			try
 			{
-				Address result = addressUtility.ParseAddress(input.Trim());
+				Email result = new Email(input.Trim());
 				return result;
 			}
 			catch (Exception e)
 			{
-				Program.Write("There was an error parsing this address.");
+				Program.Write("There was an error parsing this email.");
 				Program.Write("The exception is as follows: " + e.Message);
 				Program.Write(e.Source);
 				Program.Write(e.StackTrace);
@@ -100,62 +107,59 @@ namespace DocumentParser.DocumentLoading.Resume
 			}
 		}
 
+
 		#endregion
-		
+
 		#region Constructors
 
 		/// <summary>
-		/// AddressBook() is an empty constructor
+		/// EmailBook() is an empty constructor
 		/// that sets up the storage and collection
 		/// objects for future use, as well as
 		/// flagging the _empty flag with it's
 		/// default value.
 		/// </summary>
-		public AddressBook() : base()
+		public EmailBook() : base()
 		{
 		}
 
 		/// <summary>
-		/// AddressBook(int, string) takes a type
-		/// and an address.
+		/// EmailBook(int, string) takes a type
+		/// and an email.
 		/// </summary>
-		/// <param name="type">Type the address will be registered as.</param>
-		/// <param name="address">Address to be parsed.</param>
-		public AddressBook(int type, string address) 
-			: base(type, address)
+		/// <param name="type">Type the email address will be registered as.</param>
+		/// <param name="email">Email address to be parsed.</param>
+		public EmailBook(int type, string email) : base(type, email)
 		{
 		}
 
 		/// <summary>
-		/// AddressBook(string, string) takes a type
-		/// and an address.
+		/// EmailBook(string, string) takes a type
+		/// and an email.
 		/// </summary>
-		/// <param name="type">Type the address will be registered as.</param>
-		/// <param name="address">Address to be parsed.</param>
-		public AddressBook(string type, string address) 
-			: base(type, address)
+		/// <param name="type">Type the email address will be registered as.</param>
+		/// <param name="email">Email address to be parsed.</param>
+		public EmailBook(string type, string email) : base(type, email)
 		{
 		}
 
 		/// <summary>
-		/// AddressBook(int, Address) takes a type
-		/// and an address.
+		/// EmailBook(int, Email) takes a type
+		/// and an email.
 		/// </summary>
-		/// <param name="type">Type the address will be registered as.</param>
-		/// <param name="address">Address to be parsed.</param>
-		public AddressBook(int type, Address address) 
-			: base(type, address)
+		/// <param name="type">Type the email address will be registered as.</param>
+		/// <param name="email">Email address to be parsed.</param>
+		public EmailBook(int type, Email email) : base(type, email)
 		{
 		}
 
 		/// <summary>
-		/// AddressBook(string, Address) takes a type
-		/// and an address.
+		/// EmailBook(string, Email) takes a type
+		/// and an email.
 		/// </summary>
-		/// <param name="type">Type the address will be registered as.</param>
-		/// <param name="address">Address to be parsed.</param>
-		public AddressBook(string type, Address address)
-			: base(type, address)
+		/// <param name="type">Type the email address will be registered as.</param>
+		/// <param name="email">Email address to be parsed.</param>
+		public EmailBook(string type, Email email) : base(type, email)
 		{
 		}
 
@@ -164,15 +168,15 @@ namespace DocumentParser.DocumentLoading.Resume
 		#region Methods
 
 		#region GetAsEntry Implementations
-		
+
 		/// <summary>
 		/// GetAsEntry(string) returns the
-		/// the Address that matches
+		/// the Email that matches
 		/// the string.
 		/// </summary>
 		/// <param name="entry">The entry being searched for.</param>
 		/// <returns>Throws exceptions if the entry does not exist or cannot be parsed. Returns object otherwise.</returns>
-		protected override Address GetAsEntry(string entry)
+		protected override Email GetAsEntry(string entry)
 		{
 			if (String.IsNullOrEmpty(entry.Trim()))
 			{
@@ -182,11 +186,10 @@ namespace DocumentParser.DocumentLoading.Resume
 			{
 				try
 				{
-					AddressReader addressUtility = new AddressReader();
-					Address address = addressUtility.ParseAddress(entry.Trim());
+					Email email = new Email(entry);
 
 					// Check if it's possible.
-					if (address == null)
+					if (email == null)
 					{
 						throw new ArgumentNullException("There was an error processing the address.");
 					}
@@ -194,7 +197,7 @@ namespace DocumentParser.DocumentLoading.Resume
 					// If it's possible and valid, check Dictionary reference status.
 					{
 						// Does the address, itself, already exist?
-						if (_directory.ContainsValue(address) || _book.ContainsValue(address))
+						if (_directory.ContainsValue(email) || _book.ContainsValue(email))
 						{
 							throw new ArgumentException("This address has already been recorded!");
 						}
@@ -202,7 +205,7 @@ namespace DocumentParser.DocumentLoading.Resume
 						{
 
 							// If all formms of validation have succeeded, safely pass the queried entry.
-							return address;
+							return email;
 
 						}
 					}
@@ -216,12 +219,12 @@ namespace DocumentParser.DocumentLoading.Resume
 
 		/// <summary>
 		/// GetAsEntry(int) returns the
-		/// the Address that matches
+		/// the Email that matches
 		/// the number, if possible.
 		/// </summary>
 		/// <param name="entry">The entry being searched for.</param>
 		/// <returns>Throws exceptions if the entry does not exist or cannot be parsed. Returns object otherwise.</returns>
-		protected override Address GetAsEntry(int entry)
+		protected override Email GetAsEntry(int entry)
 		{
 			if (entry < 0)
 			{
@@ -236,13 +239,13 @@ namespace DocumentParser.DocumentLoading.Resume
 		#endregion
 
 		#region Miscellaneous Methods
-
+		
 		/// <summary>
-		/// GetAddress(int) allows users to retrieve a single address.
+		/// GetEmail(int) allows users to retrieve a single email address.
 		/// </summary>
-		/// <param name="type">Type of address required.</param>
-		/// <returns>Returns an Address object.</returns>
-		public Address GetAddress(int type)
+		/// <param name="type">Type of email address required.</param>
+		/// <returns>Returns an Email object.</returns>
+		public Email GetEmail(int type)
 		{
 			return GetEntry(type);
 		}

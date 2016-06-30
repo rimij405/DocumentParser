@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
    * 
-   * <Resume Scraper> Copyright (C) 2016  Ian A. Effendi 
+   * Resume Scraper Copyright (C) 2016  Ian A. Effendi 
    * 
    * This project has been created for the purpose of
    * scraping data and information from clients
@@ -24,9 +24,6 @@
    **************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DocumentParser.DocumentLoading.Resume
 {
@@ -35,21 +32,38 @@ namespace DocumentParser.DocumentLoading.Resume
 	/// The first, middle, and last name
 	/// of a given applicant.
 	/// </summary>
-	public class Name
+	public class Name : BaseBook
 	{
 		#region Constants
 
-		public const string EMPTY = "{EMPTY}";
+		// // String types.
+		public const string PREFIX = "Prefix";
+		public const string FIRST_NAME = "First Name";
+		public const string MIDDLE_NAME = "Middle Name";
+		public const string LAST_NAME = "Last Name";
+		public const string SUFFIX = "Suffix";
+		public const string FULL_NAME = "Full Name";
+		public const string NULL = "NULL";
+
+		// // Int codes.
+		public const int PREFIX_CODE = 0;
+		public const int FIRST_NAME_CODE = 1;
+		public const int MIDDLE_NAME_CODE = 2;
+		public const int LAST_NAME_CODE = 3;
+		public const int SUFFIX_CODE = 4;
+		public const int FULL_NAME_CODE = 5;
+		public const int NULL_CODE = -1;
+
+		public static Dictionary<int, string> TYPES;
+		public static Dictionary<string, int> CODES;
+		public static bool isInitialized = false;
 
 		#endregion
 
 		#region Attributes
-
-		private string _prefix = ""; // Dr., Mr., Mrs., Miss, etc.
-		private string _firstName = ""; // First name. John, Jane, etc.
-		private string _middleName = ""; // Middle name. Chris, Rose, etc.
-		private string _lastName = ""; // Last name. Davidson, Davis, etc.
-		private string _suffix = ""; // Suffix. M.D., M.A., Esq., PhD., Jr., III, etc.
+		
+		private Dictionary<string, string> _name;
+		private bool _empty;
 
 		#endregion
 
@@ -62,27 +76,7 @@ namespace DocumentParser.DocumentLoading.Resume
 		/// </summary>
 		public string FullName
 		{
-			get
-			{
-				string fullName = "";
-
-				if (!IsEmpty(_prefix))
-				{ fullName += _prefix + " "; }
-
-				if (!IsEmpty(_firstName))
-				{ fullName += _firstName + " "; }
-
-				if (!IsEmpty(_middleName))
-				{ fullName += _middleName + " "; }
-
-				if (!IsEmpty(_lastName))
-				{ fullName += _lastName + " "; }
-
-				if (!IsEmpty(_suffix))
-				{ fullName += _suffix + " "; }
-				
-				return fullName.Trim();
-			}
+			get { return _name[FULL_NAME]; }
 		}
 
 		/// <summary>
@@ -92,18 +86,7 @@ namespace DocumentParser.DocumentLoading.Resume
 		/// </summary>
 		public string Prefix
 		{
-			get
-			{
-				if (!IsEmpty(_prefix))
-				{
-					return _prefix;
-				}
-				else
-				{
-					return "";
-				}
-			}
-
+			get { return _name[PREFIX]; }
 		}
 
 		/// <summary>
@@ -113,17 +96,7 @@ namespace DocumentParser.DocumentLoading.Resume
 		/// </summary>
 		public string FirstName
 		{
-			get
-			{
-				if (!IsEmpty(_firstName))
-				{
-					return _firstName;
-				}
-				else
-				{
-					return "";
-				}
-			}
+			get { return _name[FIRST_NAME]; }
 		}
 
 		/// <summary>
@@ -133,17 +106,7 @@ namespace DocumentParser.DocumentLoading.Resume
 		/// </summary>
 		public string MiddleName
 		{
-			get
-			{
-				if (!IsEmpty(_middleName))
-				{
-					return _middleName;
-				}
-				else
-				{
-					return "";
-				}
-			}
+			get { return _name[MIDDLE_NAME]; }
 		}
 
 		/// <summary>
@@ -153,17 +116,8 @@ namespace DocumentParser.DocumentLoading.Resume
 		/// </summary>
 		public string LastName
 		{
-			get
-			{
-				if (!IsEmpty(_lastName))
-				{
-					return _lastName;
-				}
-				else
-				{
-					return "";
-				}
-			}
+
+			get { return _name[LAST_NAME]; }
 		}
 
 		/// <summary>
@@ -173,18 +127,7 @@ namespace DocumentParser.DocumentLoading.Resume
 		/// </summary>
 		public string Suffix
 		{
-			get
-			{
-				if (!IsEmpty(_suffix))
-				{
-					return _suffix;
-				}
-				else
-				{
-					return "";
-				}
-			}
-
+			get { return _name[SUFFIX]; }
 		}
 		
 		/// <summary>
@@ -196,7 +139,22 @@ namespace DocumentParser.DocumentLoading.Resume
 		{
 			get
 			{
-				return (!IsEmpty(_prefix));
+				string temp = Prefix;
+				return (temp != NULL && !IsEmptyOrNull(temp));
+			}
+		}
+
+		/// <summary>
+		/// HasFirstName determines if
+		/// this name has a given
+		/// first name.
+		/// </summary>
+		public bool HasFirstName
+		{
+			get
+			{
+				string temp = FirstName;
+				return (temp != NULL && !IsEmptyOrNull(temp));
 			}
 		}
 
@@ -209,11 +167,25 @@ namespace DocumentParser.DocumentLoading.Resume
 		{
 			get
 			{
-				return (!IsEmpty(_middleName));
+				string temp = MiddleName;
+				return (temp != NULL && !IsEmptyOrNull(temp));
 			}
 		}
-
-
+		
+		/// <summary>
+		/// HasLastName determines if
+		/// this name has a given
+		/// last name.
+		/// </summary>
+		public bool HasLastName
+		{
+			get
+			{
+				string temp = LastName;
+				return (temp != NULL && !IsEmptyOrNull(temp));
+			}
+		}
+		
 		/// <summary>
 		/// HasSuffix determines if
 		/// this name has a given
@@ -223,13 +195,31 @@ namespace DocumentParser.DocumentLoading.Resume
 		{
 			get
 			{
-				return (!IsEmpty(_suffix));
+				string temp = Suffix;
+				return (temp != NULL && !IsEmptyOrNull(temp));
 			}
+		}
+
+		/// <summary>
+		/// IsEmpty returns the
+		/// _empty flag.
+		/// </summary>
+		public bool Empty
+		{
+			get { return this._empty; }
 		}
 
 		#endregion
 
 		#region Constructor
+
+		/// <summary>
+		/// Name() is an empty constructor.
+		/// </summary>
+		public Name()
+		{
+			_init();
+		}
 
 		/// <summary>
 		/// Name(string, string, string, string, string) is a constructor for 
@@ -243,11 +233,54 @@ namespace DocumentParser.DocumentLoading.Resume
 		/// <param name="suffix">Applicant's suffix.</param>
 		public Name(string prefix, string firstName, string middleName, string lastName, string suffix)
 		{
-			AssignUnlessEmpty(ref this._prefix, prefix);
-			AssignUnlessEmpty(ref this._firstName, firstName);
-			AssignUnlessEmpty(ref this._middleName, middleName);
-			AssignUnlessEmpty(ref this._lastName, lastName);
-			AssignUnlessEmpty(ref this._suffix, suffix);
+			_init();
+			AssignUnlessEmpty(PREFIX, prefix);
+			AssignUnlessEmpty(FIRST_NAME, firstName);
+			AssignUnlessEmpty(MIDDLE_NAME, middleName);
+			AssignUnlessEmpty(LAST_NAME, lastName);
+			AssignUnlessEmpty(SUFFIX, suffix);
+		}
+
+		/// <summary>
+		/// _init() is an initialization
+		/// method called by the above constructors.
+		/// </summary>
+		public void _init()
+		{
+			this._name = new Dictionary<string, string>();
+			this._empty = true;
+
+			_name.Add(PREFIX, NULL);
+			_name.Add(FIRST_NAME, NULL);
+			_name.Add(MIDDLE_NAME, NULL);
+			_name.Add(LAST_NAME, NULL);
+			_name.Add(SUFFIX, NULL);
+			_name.Add(FULL_NAME, NULL);
+			_name.Add(NULL, NULL);
+
+			if (!isInitialized)
+			{
+				TYPES = new Dictionary<int, string>();
+				CODES = new Dictionary<string, int>();
+
+				TYPES.Add(PREFIX_CODE, PREFIX);
+				TYPES.Add(FIRST_NAME_CODE, FIRST_NAME);
+				TYPES.Add(MIDDLE_NAME_CODE, MIDDLE_NAME);
+				TYPES.Add(LAST_NAME_CODE, LAST_NAME);
+				TYPES.Add(SUFFIX_CODE, SUFFIX);
+				TYPES.Add(FULL_NAME_CODE, FULL_NAME);
+				TYPES.Add(NULL_CODE, NULL);
+
+				CODES.Add(PREFIX, PREFIX_CODE);
+				CODES.Add(FIRST_NAME, FIRST_NAME_CODE);
+				CODES.Add(MIDDLE_NAME, MIDDLE_NAME_CODE);
+				CODES.Add(LAST_NAME, LAST_NAME_CODE);
+				CODES.Add(SUFFIX, SUFFIX_CODE);
+				CODES.Add(FULL_NAME, FULL_NAME_CODE);
+				CODES.Add(NULL, NULL_CODE);
+
+				isInitialized = true;
+			}
 		}
 
 		#endregion
@@ -255,36 +288,138 @@ namespace DocumentParser.DocumentLoading.Resume
 		#region Methods
 
 		/// <summary>
+		/// UpdateFullName() updates
+		/// the full name being stored
+		/// in the _name Dictionary.
+		/// </summary>
+		private void UpdateFullName()
+		{
+			string fullName = "";
+
+			if (HasPrefix)
+			{ fullName += _name[PREFIX] + " "; }
+
+			if (HasFirstName)
+			{ fullName += _name[FIRST_NAME] + " "; }
+
+			if (HasMiddleName)
+			{ fullName += _name[MIDDLE_NAME] + " "; }
+
+			if (HasLastName)
+			{ fullName += _name[LAST_NAME] + " "; }
+
+			if (HasSuffix)
+			{ fullName += _name[SUFFIX] + " "; }
+
+			_name[FULL_NAME] = fullName.Trim();
+		}
+
+		/// <summary>
 		/// IsEmpty(string) determines
 		/// if the input string matches
 		/// the "EMPTY" code provided
-		/// within this class. See <see cref="Name.EMPTY"/>
+		/// within this class. See <see cref="Name.NULL"/>
 		/// </summary>
 		/// <param name="input">String input for determination of emptiness.</param>
 		/// <returns>Returns true if the string is empty or null; returns false if otherwise.</returns>
-		public bool IsEmpty(string input)
+		private bool IsEmptyOrNull(string input)
 		{
-			return (input == EMPTY || String.IsNullOrEmpty(input));
+			return (input.Trim() == NULL || String.IsNullOrEmpty(input.Trim()));
 		}
-
 
 		/// <summary>
 		/// AssignUnlessEmpty(string, string) assigns the second
-		/// parameter's value to the first, as long as 
+		/// parameter's value to the first, as long as it isn't empty.
 		/// </summary>
-		/// <param name="assignTo"></param>
-		/// <param name="assignee"></param>
-		public void AssignUnlessEmpty(ref string assignTo, string assignee)
+		/// <param name="assignType">Type the assignee is to be registered to.</param>
+		/// <param name="assignee">The value to give to the type.</param>
+		public void AssignUnlessEmpty(string assignType, string assignee)
 		{
-			if (IsEmpty(assignee))
+			if (IsValidType(assignType) && !IsEmptyOrNull(assignee))
 			{
-				assignTo = EMPTY;
+				string value = _name[assignType];
+				value = assignee;
+				_name[assignType] = value;
+				UpdateFullName();
+			}
+		}
+
+		#region GetType methods.
+
+		/// <summary>
+		/// GetType(int) returns
+		/// the string conversion
+		/// of the given type.
+		/// </summary>
+		/// <param name="type">Type being sought out.</param>
+		/// <returns>Returns the appropriate value for type.</returns>
+		public string GetType(int type)
+		{
+			if (IsValidType(type))
+			{
+				return TYPES[type];
 			}
 			else
 			{
-				assignTo = assignee;
+				return TYPES[NULL_CODE];
 			}
 		}
+
+		/// <summary>
+		/// GetType(string) returns
+		/// the string conversion
+		/// of the given type.
+		/// </summary>
+		/// <param name="type">Type being sought out.</param>
+		/// <returns>Returns the appropriate value for type.</returns>
+		public int GetType(string type)
+		{
+			if (IsValidType(type))
+			{
+				return CODES[type];
+			}
+			else
+			{
+				return CODES[NULL];
+			}
+		}
+
+		#endregion
+
+		#region Validation methods.
+
+		/// <summary>
+		/// IsValidType(int) returns
+		/// the validity status of
+		/// the parameter.
+		/// </summary>
+		/// <param name="type">Type being sought out.</param>
+		/// <returns>Returns true if valid and not null. Returns false, if otherwise.</returns>
+		public bool IsValidType(int type)
+		{
+			return ((TYPES.ContainsKey(type)) && (type != NULL_CODE));
+		}
+
+		/// <summary>
+		/// IsValidType(string) returns
+		/// the validity status of
+		/// the parameter.
+		/// </summary>
+		/// <param name="type">Type being sought out.</param>
+		/// <returns>Returns true if valid and not null. Returns false, if otherwise.</returns>
+		public bool IsValidType(string type)
+		{
+			if (!IsEmptyOrNull(type))
+			{
+				return ((CODES.ContainsKey(type)) && (type != NULL));
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		#endregion
 
 		#endregion
 	}

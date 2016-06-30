@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
    * 
-   * <Resume Scraper> Copyright (C) 2016  Ian A. Effendi 
+   * Resume Scraper Copyright (C) 2016  Ian A. Effendi 
    * 
    * This project has been created for the purpose of
    * scraping data and information from clients
@@ -63,10 +63,7 @@ namespace DocumentParser.DocumentLoading
 		 * - - Information goes here.
 		 */
 
-		private Name _fullName;
-		private List<AddressBook> _streetAddresses;
-		private List<Telephone> _phoneNumbers;
-		private List<EmailAddress> _emailAddresses;
+		ContactSheet _contactSheet;		
 		Dictionary<string, List<Experience>> _experiences;
 		private List<Experience> _workExperience;
 		private List<Experience> _educationExperience;
