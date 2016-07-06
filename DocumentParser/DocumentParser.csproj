@@ -117,6 +117,7 @@
     <Compile Include="DocumentLoading\IDocumentParser.cs" />
     <Compile Include="DocumentLoading\PDFDocumentParser.cs" />
     <Compile Include="DocumentLoading\PdfSharpExtensions.cs" />
+    <Compile Include="DocumentLoading\Resume\Experiences\BulletPoint.cs" />
     <Compile Include="ResumeDTO.cs" />
     <Compile Include="DocumentLoading\Resume\Books\AddressBook.cs" />
     <Compile Include="DocumentLoading\Resume\Books\BaseBook.cs" />

@@ -31,9 +31,6 @@ using Chronic;
 
 namespace DocumentParser.DocumentLoading.Resume.Experiences
 {
-
-	// TODO: Add class descriptions and boilerplates to all classes.
-	// TODO: Do not delete this or the above task until it is accomplished for ALL tasks.
 	/// <summary>
 	/// TimeFrame is a starting and ending period
 	/// that allows the attempted parsing of user

@@ -30,12 +30,42 @@ using System.Threading.Tasks;
 
 namespace DocumentParser.DocumentLoading.Resume.Experiences
 {
-
-	// TODO: Add boilerplate content.
-
 	// TODO: Add a summary for the class.
+	/// <summary>
+	/// Description is a class that manages
+	/// a collection of "bullet" points via
+	/// a recursive system.
+	/// </summary>
 	public class Description
 	{
+
+		/*
+		 * Visual representation of the bullet point system.
+		 * 
+		 Level = (x)
+
+		 Document {
+		
+		 (0) * Points to a list of bullets.
+			(1)
+				(2)
+				(2)
+			(1)
+			(1)
+				(2)
+					(3)
+		(0)
+		 }
+
+		A bullet point's main content is a string.
+		A bullet contains a "level".
+		A bullet can contain another "bullet" via level + 1.
+		A bullet's next should point to the next bullet,
+		embedded.
+		A bullet cannot point to the next bullet on the
+		previous level.
+		 */
+
 		// TODO: Add content for the class.
 	}
 }
