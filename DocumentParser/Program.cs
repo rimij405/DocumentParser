@@ -87,6 +87,13 @@
    *   GNU General Public License v. 2 (GPLv2), however,
    *   it has since been re-released under the MIT License,
    *   a simpler, more permissive, license.
+   *   
+   * - nChronic (Under the MIT License)
+   *   <https://github.com/robertwilczynski/nChronic>
+   *   This is a DateTime parser released under the
+   *   MIT License. It is a .NET port of the original
+   *   Chronic program written in Ruby by Mike Schrag.
+   *   This port was developed by Robert Wilczynski.
    * 
    ****************************************************************************/
 using DocumentParser.DocumentLoading;
@@ -145,7 +152,7 @@ namespace DocumentParser
 		public static void Main(string[] args)
 		{
 			init();
-
+			
 			try
 			{
 

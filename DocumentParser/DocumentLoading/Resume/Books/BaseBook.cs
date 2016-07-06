@@ -24,7 +24,7 @@
    **************************************************************************/
 using System;
 
-namespace DocumentParser.DocumentLoading.Resume
+namespace DocumentParser.DocumentLoading.Resume.Books
 {
 	/// <summary>
 	/// BaseBook is a base class that identifies

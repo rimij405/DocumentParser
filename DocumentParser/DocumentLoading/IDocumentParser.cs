@@ -32,6 +32,10 @@ using System.Threading.Tasks;
 
 namespace DocumentParser.DocumentLoading
 {
+	/// <summary>
+	/// IDocumentParser is an interface for representing
+	/// all the different files that need to be loaded.
+	/// </summary>
 	public abstract class IDocumentParser : IDisposable
 	{
 		// What does the IDocumentParser require of its implementations?

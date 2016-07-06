@@ -26,8 +26,13 @@ using System;
 using System.Collections.Generic;
 using PhoneNumbers;
 
-namespace DocumentParser.DocumentLoading.Resume
+namespace DocumentParser.DocumentLoading.Resume.Books
 {
+	/// <summary>
+	/// PhoneBook is a collection of
+	/// PhoneNumbers via the IBook
+	/// abstraction.
+	/// </summary>
 	public class PhoneBook : IBook<PhoneNumber>
 	{
 		#region Properties

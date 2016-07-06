@@ -24,8 +24,10 @@
    **************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 
-namespace DocumentParser.DocumentLoading.Resume
+namespace DocumentParser.DocumentLoading.Resume.Books
 {
 	/// <summary>
 	/// The Name.cs class holds three things:
@@ -68,7 +70,7 @@ namespace DocumentParser.DocumentLoading.Resume
 		#endregion
 
 		#region Properties
-
+		
 		/// <summary>
 		/// FullName returns the entire
 		/// full name utilizing whatever
@@ -87,6 +89,7 @@ namespace DocumentParser.DocumentLoading.Resume
 		public string Prefix
 		{
 			get { return _name[PREFIX]; }
+			set { AssignUnlessEmpty(PREFIX, value); }
 		}
 
 		/// <summary>
@@ -97,6 +100,7 @@ namespace DocumentParser.DocumentLoading.Resume
 		public string FirstName
 		{
 			get { return _name[FIRST_NAME]; }
+			set { AssignUnlessEmpty(FIRST_NAME, value); }
 		}
 
 		/// <summary>
@@ -107,6 +111,7 @@ namespace DocumentParser.DocumentLoading.Resume
 		public string MiddleName
 		{
 			get { return _name[MIDDLE_NAME]; }
+			set { AssignUnlessEmpty(MIDDLE_NAME, value); }
 		}
 
 		/// <summary>
@@ -116,8 +121,8 @@ namespace DocumentParser.DocumentLoading.Resume
 		/// </summary>
 		public string LastName
 		{
-
 			get { return _name[LAST_NAME]; }
+			set { AssignUnlessEmpty(LAST_NAME, value); }
 		}
 
 		/// <summary>
@@ -128,6 +133,7 @@ namespace DocumentParser.DocumentLoading.Resume
 		public string Suffix
 		{
 			get { return _name[SUFFIX]; }
+			set { AssignUnlessEmpty(SUFFIX, value); }
 		}
 		
 		/// <summary>
@@ -287,6 +293,57 @@ namespace DocumentParser.DocumentLoading.Resume
 
 		#region Methods
 
+		#region Static Methods
+
+		/// <summary>
+		/// Merge(Name, Name) takes two books and merges
+		/// so that any empty holes in the first are
+		/// filled by the second.
+		/// </summary>
+		/// <param name="baseBook">Book being merged to.</param>
+		/// <param name="newBook">Book with the new data to merge. </param>
+		/// <param name="overwrite">Overwrite flag.</param>
+		public static void Merge(Name baseBook, Name newBook, bool overwrite)
+		{
+			if (overwrite)
+			{
+				Overwrite(baseBook, newBook);
+				return;
+			}
+			else
+			{
+				for (int i = 0; i < FULL_NAME_CODE; i++)
+				{
+					if (!baseBook.Has(i) && newBook.Has(i))
+					{
+						baseBook.Set(Name.TYPES[i], newBook.Get(Name.TYPES[i]));
+					}
+				}
+
+			}
+		}
+
+		/// <summary>
+		/// Overwrite(Name, Name) takes two books of 
+		/// the same type and merges them, 
+		/// overwriting all entries from the latter,
+		/// into the new one.
+		/// </summary>
+		/// <param name="baseBook">Book being overwritten.</param>
+		/// <param name="newBook">Book with the new data to overwrite.</param>
+		public static void Overwrite(Name baseBook, Name newBook)
+		{
+			for (int i = 0; i < FULL_NAME_CODE; i++)
+			{
+				if (baseBook.Has(i) && newBook.Has(i))
+				{
+					baseBook.Set(Name.TYPES[i], newBook.Get(Name.TYPES[i]));
+				}
+			}
+		}
+
+		#endregion
+
 		/// <summary>
 		/// UpdateFullName() updates
 		/// the full name being stored
@@ -312,6 +369,48 @@ namespace DocumentParser.DocumentLoading.Resume
 			{ fullName += _name[SUFFIX] + " "; }
 
 			_name[FULL_NAME] = fullName.Trim();
+		}
+
+		/// <summary>
+		/// Has(int) returns
+		/// the status of a particular
+		/// property, should the
+		/// type be correctly input.
+		/// </summary>
+		/// <param name="type">Type being sought out.</param>
+		/// <returns>Returns true if it has it, false if it doesn't or if the type statement is incorrect.</returns>
+		public bool Has(int type)
+		{			
+			if (IsValidType(type))
+			{
+				Dictionary<string, string> temp = new Dictionary<string, string>();
+				var properties = TypeDescriptor.GetProperties(this).Cast<PropertyDescriptor>().ToDictionary(prop => prop.Name);
+
+				temp.Add(PREFIX, "HasPrefix");
+				temp.Add(FIRST_NAME, "HasFirstName");
+				temp.Add(MIDDLE_NAME, "HasMiddleName");
+				temp.Add(LAST_NAME, "HasLastName");
+				temp.Add(SUFFIX, "HasSuffix");
+
+				string typeName = GetType(type);
+
+				return (bool) properties[temp[typeName]].GetValue(this);
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Has(string) returns
+		/// the status of a particular
+		/// property, should the
+		/// type be correctly input.
+		/// </summary>
+		/// <param name="type">Type being sought out.</param>
+		/// <returns>Returns true if it has it, false if it doesn't or if the type statement is incorrect.</returns>
+		public bool Has(string type)
+		{
+			return Has(GetType(type));
 		}
 
 		/// <summary>
@@ -417,6 +516,144 @@ namespace DocumentParser.DocumentLoading.Resume
 			{
 				return false;
 			}
+		}
+
+		#endregion
+
+		#region Accessor Methods.
+
+		/// <summary>
+		/// Set(int, string) sets
+		/// the value to the corresponding type.
+		/// </summary>
+		/// <param name="type">Type being sought out.</param>
+		/// <param name="value">Value to be assigned.</param>
+		public void Set(int type, string value)
+		{
+			if (IsValidType(type))
+			{
+				switch (GetType(type))
+				{
+					case PREFIX:
+						Prefix = value;
+						return;
+					case FIRST_NAME:
+						FirstName = value;
+						return;
+					case MIDDLE_NAME:
+						MiddleName = value;
+						return;
+					case LAST_NAME:
+						LastName = value;
+						return;
+					case SUFFIX:
+						Suffix = value;
+						return;
+					case NULL:
+					default:
+						return;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set(string, string) sets
+		/// the value to the corresponding type.
+		/// </summary>
+		/// <param name="type">Type being sought out.</param>
+		/// <param name="value">Value to be assigned.</param>
+		public void Set(string type, string value)
+		{
+			if (IsValidType(type))
+			{
+				switch (type)
+				{
+					case PREFIX:
+						Prefix = value;
+						return;
+					case FIRST_NAME:
+						FirstName = value;
+						return;
+					case MIDDLE_NAME:
+						MiddleName = value;
+						return;
+					case LAST_NAME:
+						LastName = value;
+						return;
+					case SUFFIX:
+						Suffix = value;
+						return;
+					case NULL:
+					default:
+						return;
+				}
+			}
+		}
+
+		#endregion
+
+		#region Mutator Methods.
+
+		/// <summary>
+		/// Get(int, string) gets
+		/// the value to the corresponding type.
+		/// </summary>
+		/// <param name="type">Type being sought out.</param>
+		/// <returns>Returns the string value associated with the given type.</returns>
+		public string Get(int type)
+		{
+			if (IsValidType(type))
+			{
+				switch (GetType(type))
+				{
+					case PREFIX:
+						return Prefix;
+					case FIRST_NAME:
+						return FirstName;
+					case MIDDLE_NAME:
+						return MiddleName;
+					case LAST_NAME:
+						return LastName;
+					case SUFFIX:
+						return Suffix;
+					case NULL:
+					default:
+						return NULL;
+				}
+			}
+
+			return NULL;
+		}
+
+		/// <summary>
+		/// Get(string, string) gets
+		/// the value to the corresponding type.
+		/// </summary>
+		/// <param name="type">Type being sought out.</param>
+		/// <returns>Returns the string value associated with the given type.</returns>
+		public string Get(string type)
+		{
+			if (IsValidType(type))
+			{
+				switch (type)
+				{
+					case PREFIX:
+						return Prefix;
+					case FIRST_NAME:
+						return FirstName;
+					case MIDDLE_NAME:
+						return MiddleName;
+					case LAST_NAME:
+						return LastName;
+					case SUFFIX:
+						return Suffix;
+					case NULL:
+					default:
+						return NULL;
+				}
+			}
+
+			return NULL;
 		}
 
 		#endregion

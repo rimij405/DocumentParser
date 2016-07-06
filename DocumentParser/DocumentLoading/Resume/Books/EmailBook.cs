@@ -26,8 +26,14 @@ using System;
 using System.Collections.Generic;
 using Email = System.Net.Mail.MailAddress;
 
-namespace DocumentParser.DocumentLoading.Resume
+namespace DocumentParser.DocumentLoading.Resume.Books
 {
+	/// <summary>
+	/// EmailBook is a collectionn of
+	/// Email (MailAddress) objects
+	/// via the operatins provided by
+	/// the IBook abstraction.
+	/// </summary>
 	public class EmailBook : IBook<Email>
 	{
 		#region Properties

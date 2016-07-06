@@ -63,17 +63,47 @@ namespace DocumentParser.DocumentLoading
 		 * - - Information goes here.
 		 */
 
-		ContactSheet _contactSheet;		
-		Dictionary<string, List<Experience>> _experiences;
-		private List<Experience> _workExperience;
-		private List<Experience> _educationExperience;
-		private List<Experience> _otherExperience;
-		private string _other;
-				
+		private ContactSheet _contactSheet;
+		private ExperienceList _experienceList;
+		private bool _empty;
+
 		#endregion
 
 		#region Properties
 
+		public ContactSheet ContactInformation
+		{
+			get { return this._contactSheet; }
+		}
+
+		public ExperienceList Experiences
+		{
+			get { return this._experienceList; }
+		}
+		
+		public bool Empty
+		{
+			get { return this._empty; }
+		}
+
+		#endregion
+
+		#region Constructor
+
+		public ResumeDTO()
+		{
+			this._contactSheet = new ContactSheet();
+			this._experienceList = new ExperienceList();
+			this._empty = true;
+		}
+
+		public ResumeDTO(ContactSheet cs, ExperienceList el)
+		{
+			this._contactSheet = cs;
+			this._experienceList = el;
+			this._empty = false;
+		}
+		
 		#endregion
 	}
 }

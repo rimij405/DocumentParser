@@ -41,6 +41,10 @@ using iTextSharp.text.pdf.parser;
 
 namespace DocumentParser.DocumentLoading
 {
+	/// <summary>
+	/// DocumentTester.cs tests parsing, loading, 
+	/// and reading functions from PDF's and DOC's.
+	/// </summary>
 	public static class DocumentTester
 	{
 		private static string fileName;
@@ -119,6 +123,8 @@ namespace DocumentParser.DocumentLoading
 			}
 		}
 
+
+		// TEST
 		public static void DocumentConversion()
 		{
 			DocumentLoad();
@@ -314,6 +320,8 @@ namespace DocumentParser.DocumentLoading
 			}
 		}
 
+
+		// TEST
 		public static void DocumentParsing()
 		{
 			FileInfo info = new FileInfo(fileName);
@@ -324,6 +332,8 @@ namespace DocumentParser.DocumentLoading
 
 		}
 
+
+		// TEST
 		public static void DocumentTesting()
 		{
 			DocumentLoad();
@@ -420,11 +430,11 @@ namespace DocumentParser.DocumentLoading
 				}
 			}
 		}
-
+		
+		// TEST
 		public static void CreateAndDisplayHelloWorldPDF()
 		{
-			// TODO
-			// WRITING A BLANK PDF DOCUMENT
+			// TODO: WRITING A BLANK PDF DOCUMENT
 			PdfSharp.Pdf.PdfDocument document = new PdfSharp.Pdf.PdfDocument();
 			PdfSharp.Pdf.PdfPage page = document.AddPage();
 			XGraphics gfx = XGraphics.FromPdfPage(page);
@@ -442,6 +452,7 @@ namespace DocumentParser.DocumentLoading
 		}
 
 
+		// TEST
 		public static void DocumentConversionStatus()
 		{
 			DocumentLoad();
@@ -478,6 +489,8 @@ namespace DocumentParser.DocumentLoading
 			DocumentParsing(info);
 		}
 
+
+		// TEST
 		public static bool ConvertDoc(string input)
 		{
 			try
@@ -503,11 +516,15 @@ namespace DocumentParser.DocumentLoading
 			}
 		}
 
+
+		// TEST
 		public static string GetTableContents(Novacode.Table baseTable)
 		{
 			return GetTableContents(baseTable, 0);
 		}
 
+
+		// TEST
 		public static string GetTableContents(Novacode.Table table, int level)
 		{
 			PrintPipes("Checking table: ", level);

@@ -27,8 +27,12 @@ using System.Collections.Generic;
 using AddressReader = AddressParser.AddressParser;
 using Address = AddressParser.AddressParseResult;
 
-namespace DocumentParser.DocumentLoading.Resume
+namespace DocumentParser.DocumentLoading.Resume.Books
 {
+	/// <summary>
+	/// AddressBook is a collection of Addresses
+	/// via the IBook abstract class.
+	/// </summary>
 	public class AddressBook : IBook<Address>
 	{
 		#region Properties

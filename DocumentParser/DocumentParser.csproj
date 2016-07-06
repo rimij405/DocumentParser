@@ -37,6 +37,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\AddressParser.dll</HintPath>
     </Reference>
+    <Reference Include="Chronic, Version=0.3.2.0, Culture=neutral, PublicKeyToken=3bd1f1ef638b0d3c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Chronic.Signed.0.3.2\lib\net40\Chronic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DocX, Version=1.0.0.19, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DocX.1.0.0.19\lib\net40\DocX.dll</HintPath>
       <Private>True</Private>
@@ -69,8 +73,8 @@
       <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\MigraDoc.RtfRendering.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
@@ -113,14 +117,22 @@
     <Compile Include="DocumentLoading\IDocumentParser.cs" />
     <Compile Include="DocumentLoading\PDFDocumentParser.cs" />
     <Compile Include="DocumentLoading\PdfSharpExtensions.cs" />
-    <Compile Include="DocumentLoading\ResumeDTO.cs" />
-    <Compile Include="DocumentLoading\Resume\AddressBook.cs" />
-    <Compile Include="DocumentLoading\Resume\BaseBook.cs" />
+    <Compile Include="ResumeDTO.cs" />
+    <Compile Include="DocumentLoading\Resume\Books\AddressBook.cs" />
+    <Compile Include="DocumentLoading\Resume\Books\BaseBook.cs" />
+    <Compile Include="DocumentLoading\Resume\Experiences\BaseExperience.cs" />
     <Compile Include="DocumentLoading\Resume\ContactSheet.cs" />
-    <Compile Include="DocumentLoading\Resume\EmailBook.cs" />
-    <Compile Include="DocumentLoading\Resume\IBook.cs" />
-    <Compile Include="DocumentLoading\Resume\Name.cs" />
-    <Compile Include="DocumentLoading\Resume\PhoneBook.cs" />
+    <Compile Include="DocumentLoading\Resume\Books\EmailBook.cs" />
+    <Compile Include="DocumentLoading\Resume\ExperienceList.cs" />
+    <Compile Include="DocumentLoading\Resume\Books\IBook.cs" />
+    <Compile Include="DocumentLoading\Resume\Experiences\Description.cs" />
+    <Compile Include="DocumentLoading\Resume\Experiences\IExperience.cs" />
+    <Compile Include="DocumentLoading\Resume\Books\Name.cs" />
+    <Compile Include="DocumentLoading\Resume\Books\PhoneBook.cs" />
+    <Compile Include="DocumentLoading\Resume\Experiences\Institution.cs" />
+    <Compile Include="DocumentLoading\Resume\Experiences\Location.cs" />
+    <Compile Include="DocumentLoading\Resume\Experiences\Opportunity.cs" />
+    <Compile Include="DocumentLoading\Resume\Experiences\TimeFrame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

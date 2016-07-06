@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
    * 
-   * <Resume Scraper> Copyright (C) 2016  Ian A. Effendi 
+   * Resume Scraper Copyright (C) 2016  Ian A. Effendi 
    * 
    * This project has been created for the purpose of
    * scraping data and information from clients
@@ -24,33 +24,31 @@
    **************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DocumentParser.DocumentLoading
+namespace DocumentParser.DocumentLoading.Resume
 {
 	/// <summary>
-	/// PDFDocumentParser does as the name
-	/// suggests.
+	/// ExperienceList.cs provides access
+	/// into the work experience and potential
+	/// skills for applicants.
+	/// 
+	/// This class contains a dynamic list of
+	/// "Experiences" which are classified 
+	/// by their "Company".
 	/// </summary>
-	public class PDFDocumentParser : IDocumentParser
+	public class ExperienceList
 	{
-		// What does the PDF parser do?
-		// First we need to support loading of a .pdf file.
-		// Then, we need to read through the pdf file.
-		// Then, we need to store the proper information inside of a "PDFObject" of our making.
 
-		/* Let's take the PDFObject and make it a Data Transfer Object,
-		   taking notes from the idea of APO development.
-		   For now, instead of naming it "PDFObject", we don't want to waste time:
-		   Let's go straight to the problem and create the
-		   ResumeDTO.*/
 
-		
-		protected override bool LoadDocument(string path)
-		{
-			throw new NotImplementedException();
-		}
+
+
+
+
+
+
+
 	}
 }

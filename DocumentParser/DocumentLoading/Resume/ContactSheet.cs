@@ -1,8 +1,31 @@
-﻿using System;
+﻿/*****************************************************************************
+   * 
+   * Resume Scraper Copyright (C) 2016  Ian A. Effendi 
+   * 
+   * This project has been created for the purpose of
+   * scraping data and information from clients
+   * from different documents and placing it into a separate
+   * document guided by a series of design specifications
+   * as designated by the code.
+   *  
+   * This program is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU Affero General Public License as
+   * published by the Free Software Foundation, either version 3 of the
+   * License, or (at your option) any later version.
+   * 
+   * This program is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU Affero General Public License for more details.
+   * 
+   * You should have received a copy of the GNU Affero General Public License
+   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+   * 
+   **************************************************************************/
+using DocumentParser.DocumentLoading.Resume.Books;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Mail;
 
 namespace DocumentParser.DocumentLoading.Resume
 {
@@ -12,10 +35,10 @@ namespace DocumentParser.DocumentLoading.Resume
 	/// generally be stripped from a
 	/// resume.
 	/// 
-	/// A Name, AddressBook,
-	/// EmailAddressBook, and Telephone
+	/// <para>A Name, AddressBook,
+	/// EmailAddressBook, and PhoneBook
 	/// are associated with every,
-	/// one ContactSheet.
+	/// one ContactSheet.</para>
 	/// </summary>
 	public class ContactSheet
 	{
@@ -69,13 +92,23 @@ namespace DocumentParser.DocumentLoading.Resume
 
 		#endregion
 
-		#region Constructor
+		#region Constructor / Initialization methods.
 
+		/// <summary>
+		/// ContactSheet() is an empty constructor
+		/// for a ContactSheet object.
+		/// 
+		/// In theory, when you receive a paper
+		/// form, it needs to be filled out.
+		/// As such, ContactSheets are created
+		/// "blank" and must be filled out
+		/// by the user.
+		/// </summary>
 		public ContactSheet()
 		{
-
+			_init();
 		}
-
+		
 		/// <summary>
 		/// _init() is used by the above
 		/// constructor methods in order
@@ -114,6 +147,190 @@ namespace DocumentParser.DocumentLoading.Resume
 				isInitialized = true;
 			}
 		}
+
+		#region Add Methods.
+
+		/// <summary>
+		/// Add(Name entry) adds
+		/// a new name to the contact sheet.
+		/// </summary>
+		/// <param name="entry">Value being inserted.</param>
+		/// <returns>Returns true is operation was successful. Returns false, if otherwise.</returns>
+		public bool Add(Name entry)
+		{
+			try
+			{
+				Name.Merge(_directory[NAME].GetAsName(), entry, true);
+				return true;
+			}
+			catch (Exception e)
+			{
+				Program.Write("Error when merging names: " + e.Message + "\n");
+				Program.Write("Source: " + e.Source + "\n");
+				Program.Write("Stack Trace: " + e.StackTrace);
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Add(string, string, string, string, string) adds
+		/// a new name to the contact sheet.
+		/// </summary>
+		/// <param name="entry">Value being inserted.</param>
+		/// <returns>Returns true is operation was successful. Returns false, if otherwise.</returns>
+		public bool Add(string prefix, string firstName, string middleName, string lastName, string suffix)
+		{
+			try
+			{
+				Name entry = new Name(prefix, firstName, middleName, lastName, suffix);
+				Name.Merge(_directory[NAME].GetAsName(), entry, true);
+				return true;
+			}
+			catch (Exception e)
+			{
+				Program.Write("Error when merging names: " + e.Message + "\n");
+				Program.Write("Source: " + e.Source + "\n");
+				Program.Write("Stack Trace: " + e.StackTrace);
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Add(AddressBook entry) adds
+		/// a new address book to the contact sheet.
+		/// </summary>
+		/// <param name="entry">Value being inserted.</param>
+		/// <returns>Returns true is operation was successful. Returns false, if otherwise.</returns>
+		public bool Add(AddressBook entry)
+		{
+			try
+			{
+				AddressBook.Merge(_directory[ADDRESS].GetAsAddressBook(), entry, true);
+				return true;
+			}
+			catch (Exception e)
+			{
+				Program.Write("Error when merging address book: " + e.Message + "\n");
+				Program.Write("Source: " + e.Source + "\n");
+				Program.Write("Stack Trace: " + e.StackTrace);
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Add(int, Address) adds
+		/// a new address book to the contact sheet.
+		/// </summary>
+		/// <param name="entry">Value being inserted.</param>
+		/// <returns>Returns true is operation was successful. Returns false, if otherwise.</returns>
+		public bool Add(int type, AddressParser.AddressParseResult address)
+		{
+			try
+			{
+				AddressBook entry = new AddressBook(type, address);
+				AddressBook.Merge(_directory[ADDRESS].GetAsAddressBook(), entry, true);
+				return true;
+			}
+			catch (Exception e)
+			{
+				Program.Write("Error when merging address book: " + e.Message + "\n");
+				Program.Write("Source: " + e.Source + "\n");
+				Program.Write("Stack Trace: " + e.StackTrace);
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Add(EmailBook entry) adds
+		/// a new email book to the contact sheet.
+		/// </summary>
+		/// <param name="entry">Value being inserted.</param>
+		/// <returns>Returns true is operation was successful. Returns false, if otherwise.</returns>
+		public bool Add(EmailBook entry)
+		{
+			try
+			{
+				EmailBook.Merge(_directory[EMAIL].GetAsEmailBook(), entry, true);
+				return true;
+			}
+			catch (Exception e)
+			{
+				Program.Write("Error when merging email book: " + e.Message + "\n");
+				Program.Write("Source: " + e.Source + "\n");
+				Program.Write("Stack Trace: " + e.StackTrace);
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Add(int, Email) adds
+		/// a new email book to the contact sheet.
+		/// </summary>
+		/// <param name="entry">Value being inserted.</param>
+		/// <returns>Returns true is operation was successful. Returns false, if otherwise.</returns>
+		public bool Add(int type, MailAddress email)
+		{
+			try
+			{
+				EmailBook entry = new EmailBook(type, email);
+				EmailBook.Merge(_directory[EMAIL].GetAsEmailBook(), entry, true);
+				return true;
+			}
+			catch (Exception e)
+			{
+				Program.Write("Error when merging email book: " + e.Message + "\n");
+				Program.Write("Source: " + e.Source + "\n");
+				Program.Write("Stack Trace: " + e.StackTrace);
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Add(PhoneBook entry) adds
+		/// a new phonebook to the contact sheet.
+		/// </summary>
+		/// <param name="entry">Value being inserted.</param>
+		/// <returns>Returns true is operation was successful. Returns false, if otherwise.</returns>
+		public bool Add(PhoneBook entry)
+		{
+			try
+			{
+				PhoneBook.Merge(_directory[TELEPHONE].GetAsPhoneBook(), entry, true);
+				return true;
+			}
+			catch (Exception e)
+			{
+				Program.Write("Error when merging email book: " + e.Message + "\n");
+				Program.Write("Source: " + e.Source + "\n");
+				Program.Write("Stack Trace: " + e.StackTrace);
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Add(int, PhoneNumber) adds
+		/// a new phonebook to the contact sheet.
+		/// </summary>
+		/// <param name="entry">Value being inserted.</param>
+		/// <returns>Returns true is operation was successful. Returns false, if otherwise.</returns>
+		public bool Add(int type, PhoneNumbers.PhoneNumber number)
+		{
+			try
+			{
+				PhoneBook entry = new PhoneBook(type, number);
+				PhoneBook.Merge(_directory[TELEPHONE].GetAsPhoneBook(), entry, true);
+				return true;
+			}
+			catch (Exception e)
+			{
+				Program.Write("Error when merging email book: " + e.Message + "\n");
+				Program.Write("Source: " + e.Source + "\n");
+				Program.Write("Stack Trace: " + e.StackTrace);
+				return false;
+			}
+		}
+
+		#endregion
 
 		#endregion
 

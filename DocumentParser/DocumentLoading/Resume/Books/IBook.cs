@@ -25,7 +25,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DocumentParser.DocumentLoading.Resume
+namespace DocumentParser.DocumentLoading.Resume.Books
 {
 	/// <summary>
 	/// IBook is an abstract class that should
@@ -244,8 +244,59 @@ namespace DocumentParser.DocumentLoading.Resume
 		}
 
 		#endregion
-		
+
 		#region Methods
+
+		#region Static Methods.
+
+		/// <summary>
+		/// Merge(IBook, IBook) takes two books and merges
+		/// so that any empty holes in the first are
+		/// filled by the second.
+		/// </summary>
+		/// <param name="baseBook">Book being merged to.</param>
+		/// <param name="newBook">Book with the new data to merge. </param>
+		/// <param name="overwrite">Overwrite flag.</param>
+		public static void Merge(IBook<TEntry> baseBook, IBook<TEntry> newBook, bool overwrite)
+		{
+			if (overwrite)
+			{
+				Overwrite(baseBook, newBook);
+				return;
+			}
+			else
+			{
+				foreach (int t in baseBook.Types)
+				{
+					if (!baseBook.HasType(t) && newBook.HasType(t))
+					{
+						baseBook.AddEntry(t, newBook.Directory[t]);
+					}
+				}
+				return;
+			}
+		}
+
+		/// <summary>
+		/// Overwrite(IBook, IBook) takes two books of 
+		/// the same type and merges them, 
+		/// overwriting all entries from the latter,
+		/// into the new one.
+		/// </summary>
+		/// <param name="baseBook">Book being overwritten.</param>
+		/// <param name="newBook">Book with the new data to overwrite.</param>
+		public static void Overwrite(IBook<TEntry> baseBook, IBook<TEntry> newBook)
+		{
+			foreach (int t in baseBook.Types)
+			{
+				if (baseBook.HasType(t) && newBook.HasType(t))
+				{
+					baseBook.Directory[t] = newBook.Directory[t];
+				}
+			}
+		}
+
+		#endregion
 
 		#region AddEntry Methods
 
